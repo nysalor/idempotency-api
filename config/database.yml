@@ -5,21 +5,27 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
+  adapter: mysql2
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  encoding:  utf8mb4
+  charset:   utf8mb4
+  collation: utf8mb4_general_ci
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV['DATABASE_PORT'] %>
+  username: <%= ENV['DATABASE_USER'] %>
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: idempotency-api-development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: idempotency-api-test
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: idempotency-api
